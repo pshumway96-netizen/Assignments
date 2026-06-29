@@ -1,5 +1,3 @@
-Code:
-
 section .data
     msg: db "I came,", 10, "I saw,", 10, "I conquered.", 10
     msg_len: equ $ - msg
