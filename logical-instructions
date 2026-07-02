@@ -1,1 +1,27 @@
+section .data
+    msg: db "XOR cleared rax to 0.", 10, "TEST checked rbx: value is odd.", 10
+    msg_len: equ $ - msg
 
+section .text
+    global _start
+
+_start:
+    ; Task 1: Demonstrate XORing an operand with itself clears it to 0
+    mov rax, 55555
+    xor rax, rax
+
+    ; Task 2: Practical use of TEST instruction (checking if rbx is odd)
+    mov rbx, 7
+    test rbx, 1
+
+    ; Print the result message
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, msg
+    mov rdx, msg_len
+    syscall
+
+    ; Exit program smoothly
+    mov rax, 60
+    mov rdi, 0
+    syscall
