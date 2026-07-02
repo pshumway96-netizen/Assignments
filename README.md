@@ -27,3 +27,10 @@ START -> (Define Initialized Variables) -> (Reserve Uninitialized Space for Resu
 ## 2. Challenges
 * **Dealing with signed division crashes:** My biggest problem was realizing you can't just throw an `idiv` command into the code right after multiplying. The program kept crashing with a floating-point exception until I realized I had to use `cdq` to sign-extend the registers first so the CPU didn't read random leftover data.
 * **Finding the right numbers for division:** For the last equation, I had to be really careful on picking the starting values so that the math worked out to be a whole number. I also had to make sure the bottom half of the fraction didn't end up equaling 0, since dividing by zero would instantly crash the program.
+
+## 1. Flowchart
+START -> (Define Message String) -> (XOR rax with itself to clear to 0) -> (TEST rbx with 1 to check if odd) -> (Print Message via Syscall) -> (Exit Program) -> END
+
+### 2. Challenges
+* **Understanding bitwise masking:** My biggest issue was trying to figure out how the `TEST` instruction actually works under the hood. It took me a second to realize that it performs a bitwise AND operation to mask bits and updates the CPU flags without altering the value stored in the register itself.
+* **Working with logical flags:** Keeping track of conditional jumps after a logical test was pretty confusing at first. Figuring out exactly how the Zero Flag is affected by `TEST` versus `XOR`, and managing how the program branches based on those flag states, took some trial and error to get right.
