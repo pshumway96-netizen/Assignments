@@ -49,5 +49,6 @@ Based on the execution of the division instruction (`div bl`), the quotient and 
 
 Here is the GDB screenshot verifying the register values:
 
-<img width="1915" height="1037" alt="image" src="https://github.com/user-attachments/assets/a8b90517-7e5f-432d-b773-1f588039674c" />
+<img width="1917" height="1038" alt="image (12)" src="https://github.com/user-attachments/assets/825cd9a3-0b8f-4332-bed6-24c17f004386" />
+
 
