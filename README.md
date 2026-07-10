@@ -49,4 +49,5 @@ Based on the execution of the division instruction (`div bl`), the quotient and 
 
 Here is the GDB screenshot verifying the register values:
 
-![GDB Screenshot](gdb_midterm.png)
+<img width="1915" height="1037" alt="image" src="https://github.com/user-attachments/assets/a8b90517-7e5f-432d-b773-1f588039674c" />
+
