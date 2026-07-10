@@ -35,15 +35,20 @@ START -> (Define Message String) -> (XOR rax with itself to clear to 0) -> (TEST
 * **Understanding bitwise masking:** My biggest issue was trying to figure out how the `TEST` instruction actually works under the hood. It took me a second to realize that it performs a bitwise AND operation to mask bits and updates the CPU flags without altering the value stored in the register itself.
 * **Working with logical flags:** Keeping track of conditional jumps after a logical test was pretty confusing at first. Figuring out exactly how the Zero Flag is affected by `TEST` versus `XOR`, and managing how the program branches based on those flag states, took some trial and error to get right.
 
-* ### Question 1 - Task c: Register Table
+## Question 1 Responses
+
+### Task c: Register Usage Table
+Based on the execution of the division instruction (`div bl`), the quotient and remainder are stored in the following registers:
 
 | Register Name | Value | Description |
 | :--- | :--- | :--- |
-| **al** (or rax) | `0x2` | Stores the **Quotient** |
-| **ah** (or rax) | `0x0` | Stores the **Remainder** |
+| **al** (or rax) | `0x2` (2) | Stores the **Quotient** |
+| **ah** (or rax) | `0x0` (0) | Stores the **Remainder** |
 
-### Question 1 - Task d: GDB Verification
+### Task d: GDB Verification
+Below is the GDB confirmation showing the register states after the division instruction executed:
 
-Here is the GDB screenshot verifying the register values:
-
-![GDB Screenshot](<img width="1917" height="1038" alt="midterm" src="https://github.com/user-attachments/assets/8961f91c-71d9-4e10-8667-918d13529e60" />)
+```text
+(gdb) info registers rax rbx
+rax            0x2                2
+rbx            0x3                3
