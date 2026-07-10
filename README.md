@@ -34,3 +34,16 @@ START -> (Define Message String) -> (XOR rax with itself to clear to 0) -> (TEST
 ### 2. Challenges
 * **Understanding bitwise masking:** My biggest issue was trying to figure out how the `TEST` instruction actually works under the hood. It took me a second to realize that it performs a bitwise AND operation to mask bits and updates the CPU flags without altering the value stored in the register itself.
 * **Working with logical flags:** Keeping track of conditional jumps after a logical test was pretty confusing at first. Figuring out exactly how the Zero Flag is affected by `TEST` versus `XOR`, and managing how the program branches based on those flag states, took some trial and error to get right.
+
+* ### Question 1 - Task c: Register Table
+
+| Register Name | Value | Description |
+| :--- | :--- | :--- |
+| **al** (or rax) | `0x2` | Stores the **Quotient** |
+| **ah** (or rax) | `0x0` | Stores the **Remainder** |
+
+### Question 1 - Task d: GDB Verification
+
+Here is the GDB screenshot verifying the register values:
+
+![GDB Screenshot](IMG_5110.jpeg)
