@@ -51,4 +51,44 @@ Here is the GDB screenshot verifying the register values:
 
 <img width="1917" height="1038" alt="image (12)" src="https://github.com/user-attachments/assets/825cd9a3-0b8f-4332-bed6-24c17f004386" />
 
+# Midterm Exam Responses
+
+## Question 2
+
+**Given Equation:**
+$$Y = a \cdot b + a' \cdot b + a \cdot b'$$
+
+### 1. K-Map Setup
+Since there are two variables ($a$ and $b$), a 2-variable Karnaugh Map is used. We place a `1` in the cells corresponding to the minterms present in the equation:
+* $a \cdot b$ $\rightarrow$ Row $a=1$, Column $b=1$
+* $a' \cdot b$ $\rightarrow$ Row $a=0$, Column $b=1$
+* $a \cdot b'$ $\rightarrow$ Row $a=1$, Column $b=0$
+
+| | $b = 0$ ($b'$) | $b = 1$ ($b$) |
+|---|---|---|
+| **$a = 0$ ($a'$)** | 0 | 1 |
+| **$a = 1$ ($a$)** | 1 | 1 |
+
+---
+
+### 2. Grouping and Simplification
+To simplify the expression, we loop the adjacent 1s into the largest possible groups of $2^n$ (groups of 2):
+
+1. **Horizontal Group (Row $a = 1$):**
+   * Combines cells $(a \cdot b')$ and $(a \cdot b)$.
+   * $b$ changes from 0 to 1, so it is eliminated. $a$ remains constant at 1.
+   * **Group Result = $a$**
+
+2. **Vertical Group (Column $b = 1$):**
+   * Combines cells $(a' \cdot b)$ and $(a \cdot b)$.
+   * $a$ changes from 0 to 1, so it is eliminated. $b$ remains constant at 1.
+   * **Group Result = $b$**
+
+---
+
+### 3. Final Simplified Equation
+Combining the results of both groups using the OR operator yields the final simplified Boolean expression:
+
+$$Y = a + b$$
+
 
