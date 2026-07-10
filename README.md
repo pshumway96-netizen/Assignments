@@ -46,4 +46,4 @@ START -> (Define Message String) -> (XOR rax with itself to clear to 0) -> (TEST
 
 Here is the GDB screenshot verifying the register values:
 
-![GDB Screenshot](image (12)_2.png)
+![GDB Screenshot](<img width="1917" height="1038" alt="midterm" src="https://github.com/user-attachments/assets/8961f91c-71d9-4e10-8667-918d13529e60" />)
