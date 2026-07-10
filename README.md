@@ -45,10 +45,8 @@ Based on the execution of the division instruction (`div bl`), the quotient and 
 | **al** (or rax) | `0x2` (2) | Stores the **Quotient** |
 | **ah** (or rax) | `0x0` (0) | Stores the **Remainder** |
 
-### Task d: GDB Verification
-Below is the GDB confirmation showing the register states after the division instruction executed:
+### Question 1 - Task d: GDB Verification
 
-```text
-(gdb) info registers rax rbx
-rax            0x2                2
-rbx            0x3                3
+Here is the GDB screenshot verifying the register values:
+
+![GDB Screenshot](gdb_midterm.png)
