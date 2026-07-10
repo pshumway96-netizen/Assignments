@@ -35,7 +35,9 @@ START -> (Define Message String) -> (XOR rax with itself to clear to 0) -> (TEST
 * **Understanding bitwise masking:** My biggest issue was trying to figure out how the `TEST` instruction actually works under the hood. It took me a second to realize that it performs a bitwise AND operation to mask bits and updates the CPU flags without altering the value stored in the register itself.
 * **Working with logical flags:** Keeping track of conditional jumps after a logical test was pretty confusing at first. Figuring out exactly how the Zero Flag is affected by `TEST` versus `XOR`, and managing how the program branches based on those flag states, took some trial and error to get right.
 
-## Question 1 Responses
+# Midterm Exam 
+
+## Question 1 
 
 ### Task c: Register Usage Table
 Based on the execution of the division instruction (`div bl`), the quotient and remainder are stored in the following registers:
@@ -50,8 +52,6 @@ Based on the execution of the division instruction (`div bl`), the quotient and 
 Here is the GDB screenshot verifying the register values:
 
 <img width="1917" height="1038" alt="image (12)" src="https://github.com/user-attachments/assets/825cd9a3-0b8f-4332-bed6-24c17f004386" />
-
-# Midterm Exam Responses
 
 ## Question 2
 
@@ -90,5 +90,63 @@ To simplify the expression, we loop the adjacent 1s into the largest possible gr
 Combining the results of both groups using the OR operator yields the final simplified Boolean expression:
 
 $$Y = a + b$$
+
+## Question 3
+
+### a. Detailed Design and Approach
+To determine whether a number is odd or even without using the `AND` or `OR` logical instructions, we can look at the **Least Significant Bit (LSB)** of the number using bit-shifting or arithmetic division. 
+
+**Approach: Using the `TEST` or `SHR`/`RCR` instruction**
+* Every even number in binary ends with a `0` in its least significant bit (e.g., $4 = 0100_2$).
+* Every odd number in binary ends with a `1` in its least significant bit (e.g., $5 = 0101_2$).
+* Instead of using `AND`, we can use the `TEST` instruction against `1`. `TEST` performs a bitwise logical AND operation behind the scenes to set CPU flags (like the Zero Flag) but **does not alter the destination register**.
+* Alternatively, we can use the `SHR` (Shift Right) instruction to move the lowest bit into the **Carry Flag (CF)**. If the Carry Flag becomes `1`, the number is odd. If it becomes `0`, the number is even. We will use this shifting approach as it completely avoids any logical "AND/OR" operations or concepts.
+
+---
+
+### b. & c. Assembly Code Implementation
+Below is the x86 assembly implementation that checks the value of a number and prints the corresponding message.
+
+```assembly
+section .data
+    even_msg db "even number", 10, 0   ; Message for even numbers (with newline)
+    odd_msg  db "odd number", 10, 0    ; Message for odd numbers (with newline)
+
+section .text
+    global _start
+
+_start:
+    ; Example: Load the number to check into the EAX register
+    mov eax, 7                ; Change this value to test different numbers
+
+    ; Shift the lowest bit into the Carry Flag (CF)
+    ; This avoids using any AND or OR logical instructions
+    shr eax, 1                
+
+    ; If the Carry Flag is 1, the number was odd. Jump to the odd label.
+    jc print_odd              
+
+print_even:
+    ; System call to print "even number"
+    mov eax, 4                ; sys_write
+    mov ebx, 1                ; stdout
+    mov ecx, even_msg         ; pointer to message
+    mov edx, 12               ; message length
+    int 0x80
+    jmp exit                  ; skip past the odd printing block
+
+print_odd:
+    ; System call to print "odd number"
+    mov eax, 4                ; sys_write
+    mov ebx, 1                ; stdout
+    mov ecx, odd_msg          ; pointer to message
+    mov edx, 11               ; message length
+    int 0x80
+
+exit:
+    ; System call to exit the program cleanly
+    mov eax, 1                ; sys_exit
+    mov ebx, 0                ; return 0
+    int 0x80
 
 
