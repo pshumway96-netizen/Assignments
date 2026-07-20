@@ -174,6 +174,11 @@ flowchart TD
     LoopCheck -- No --> Store[Store EAX into 'largest']
     Store --> End([End Program])
 
+##### Challenges
+  Choosing the Right Jump Instructions: At the beginning I kept using the wrong jump intructions when comparing numbers, which made the program branch completely in the wrong direction. Then I realized that unsigned jumps like ja treat negitive numbers as huge positive values, which ended up messing up the comparison. I switched over to signed jumps like jg which fixed the logic and allowed the program to correctly evaluate negetive integers.
+  Tracking Variables in GDB: It was hard to tell if the largest number was actually sacing into the "largest" varible since the terminal doesn't print out the output by default. I had to learn how to set up hardwaare watchpoints in GDB to pause the execution right when the memory adress changed. This made it so much easier to step through the intructions line by line and confirm the final result was corrrect. 
+
+
 
 
 
