@@ -149,4 +149,31 @@ exit:
     mov ebx, 0                ; return 0
     int 0x80
 
+# Conditional Instructions Assignment
+
+## 1. Flowcharts
+
+### Task 1: Generate Even or Odd Numbers up to 20
+```mermaid
+    Start([Start]) --> Init[Initialize Counter = 2 or 1\nStep = 2]
+    Init --> Check{Counter <= 20?}
+    Check -- Yes --> Print[Process / Hold Number in Register]
+    Print --> Increment[Counter = Counter + Step]
+    Increment --> Check
+    Check -- No --> End([Task 1 Complete])
+
+#### Task 2: Find the Largest Value Among Five Integers
+flowchart TD
+    Start([Start Task 2]) --> Init[EAX = array[0]\nIndex ECX = 1]
+    Init --> LoopCheck{ECX < 5?}
+    LoopCheck -- Yes --> Compare{array[ECX] > EAX?}
+    Compare -- Yes --> Update[EAX = array[ECX]]
+    Compare -- No --> Next[Increment ECX]
+    Update --> Next
+    Next --> LoopCheck
+    LoopCheck -- No --> Store[Store EAX into 'largest']
+    Store --> End([End Program])
+
+
+
 
