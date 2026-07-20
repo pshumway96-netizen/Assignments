@@ -154,7 +154,6 @@ exit:
 ## 1. Flowcharts
 
 ### Task 1: Generate Even or Odd Numbers up to 20
-```mermaid
     Start([Start]) --> Init[Initialize Counter = 2 or 1\nStep = 2]
     Init --> Check{Counter <= 20?}
     Check -- Yes --> Print[Process / Hold Number in Register]
@@ -163,7 +162,6 @@ exit:
     Check -- No --> End([Task 1 Complete])
 
 #### Task 2: Find the Largest Value Among Five Integers
-''''mermaid
     Start([Start Task 2]) --> Init[EAX = array[0]\nIndex ECX = 1]
     Init --> LoopCheck{ECX < 5?}
     LoopCheck -- Yes --> Compare{array[ECX] > EAX?}
