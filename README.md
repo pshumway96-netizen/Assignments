@@ -178,5 +178,104 @@ exit:
 
 
 
+# Activity: Loops and Arrays
 
+## 1. Flowcharts
+
+### Task 1: Optimized EBX Counter
+START -> (Reset EBX = 0) -> (Set ECX = limit) -> (Increment EBX) -> (Loop via ECX until 0) -> END
+
+### Task 2: Fibonacci Calculation (10th Term = 55)
+START -> (EAX = 0, EBX = 1, ECX = 10) -> (Is ECX == 0?) -> [If No: EDX = EAX + EBX, EAX = EBX, EBX = EDX, ECX-- -> Loop] -> [If Yes: Store EAX into 'fib_result'] -> END
+
+### Task 3: Find Largest in Array of Length 3
+START -> (Load array[0] into EAX) -> (Set ECX index = 1) -> (Compare array[ECX] with EAX) -> (If greater, EAX = array[ECX]) -> (Increment ECX) -> (Store max into 'largest') -> END
+
+---
+
+## 2. Challenges
+
+* **Understanding Register Roles in Fibonacci Loops:** Keeping track of register state during the Fibonacci calculation was tricky because registers change fast in a tight loop. I had to use EDX as a temporary holder for the sum before shifting values between EAX and EBX. Stepping through the code in GDB helped me verify that the sequence correctly hit 55 on the 10th iteration.
+* **Managing Array Memory Bounds:** Since the array only has 3 elements, off-by-one errors in assembly can easily cause the program to read garbage data past the boundary. I made sure to scale memory by 4 bytes `[array3 + ecx * 4]` and hard-stop the loop as soon as the index register `ECX` reached 3.
+
+---
+
+## 3. Assembly Code Implementation
+
+Below is the x86 assembly implementation for the loops and arrays activity.
+
+```nasm
+section .data
+    ; Task 1 Data
+    counter_limit dd 5
+
+    ; Task 2 Data
+    fib_count     dd 10             ; Target Nth Fibonacci number (10th = 55)
+
+    ; Task 3 Data
+    array3        dd 12, 89, 45     ; Integer array of length 3
+    array_len     dd 3
+
+section .bss
+    ; Variables to store results for debugging in GDB
+    fib_result    resd 1
+    largest       resd 1
+
+section .text
+    global _start
+
+_start:
+    ; Task 1: Counter using EBX Register
+    xor ebx, ebx                    ; Reset EBX counter to 0
+    mov ecx, [counter_limit]        ; Load loop count
+
+task1_loop:
+    inc ebx                         ; Increment counter register
+    loop task1_loop                 ; Decrement ECX and loop until ECX == 0
+
+    ; Task 2: Calculate 10th Fibonacci Number (Result = 55)
+    mov eax, 0                      ; F(0)
+    mov ebx, 1                      ; F(1)
+    mov ecx, [fib_count]            ; Loop counter = 10
+
+fib_loop:
+    cmp ecx, 0
+    jz store_fib
+
+    mov edx, eax                    ; edx = current F(n-1)
+    add edx, ebx                    ; edx = F(n-1) + F(n)
+    mov eax, ebx                    ; Shift F(n) -> F(n-1)
+    mov ebx, edx                    ; Shift new term -> F(n)
+
+    dec ecx
+    jmp fib_loop
+
+store_fib:
+    mov [fib_result], eax           ; Store 10th Fibonacci term (55)
+
+    ; Task 3: Find Largest Element in Array of Length 3
+    mov ecx, 1                      ; Index pointer starts at 1
+    mov eax, [array3]               ; Assume first element [0] is largest
+
+task3_loop:
+    cmp ecx, [array_len]
+    jge store_largest               ; Exit loop when all 3 elements checked
+
+    mov ebx, [array3 + ecx * 4]     ; Load array[ecx] (4 bytes per int)
+    cmp ebx, eax
+    jle skip_largest_update
+
+    mov eax, ebx                    ; Update largest value found
+
+skip_largest_update:
+    inc ecx
+    jmp task3_loop
+
+store_largest:
+    mov [largest], eax              ; Store result (89)
+
+    ; Exit Program
+    mov eax, 1                      ; sys_exit syscall
+    xor ebx, ebx                    ; status = 0
+    int 0x80
 
