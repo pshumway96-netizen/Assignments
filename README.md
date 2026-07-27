@@ -289,3 +289,12 @@ START -> (Initialize Character 'A' & Set ECX Counter to 26) -> (CALL print_char 
 * **Preserving register state across syscalls:** My biggest issue was trying to figure out why my loop was breaking after printing just one letter. It took me a while to realize that the Linux syscalls inside my procedures were overwriting `ecx`, which held my loop count, so I had to use `push ecx` and `pop ecx` around the procedure calls to protect the counter state.
 * **Managing procedural execution flow:** Keeping track of how stack jumps worked without using a debugger like `gdb` was pretty confusing at first. Figuring out how procedure calls jump to labels and ensuring every procedure properly returns with `ret` without falling through into other code blocks took some trial and error to get right.
 
+#Activity: Odd or Even Functions
+
+## 1. Flowchart
+START -> (Assign Number Variable to EAX Register) -> (CALL check_odd_even Function) -> (TEST EAX with 1 to Check LSB) -> (Branch to print_odd or print_even via Syscall) -> (Exit Program via Syscall) -> END
+
+### 2. Challenges
+* **Understanding bitwise testing for parity:** My biggest issue was figuring out the most efficient way to determine if a number was odd or even in assembly without performing a costly division operation. It took me a second to realize that using the `TEST` instruction to perform a bitwise AND on the least significant bit (LSB) sets the Zero Flag cleanly and lets me branch using `jnz`.
+* **Managing function branching and return execution:** Keeping track of conditional jumps inside a function was pretty confusing at first. Figuring out how to route execution to `print_odd` versus `print_even` while ensuring that both branches properly execute `ret` without falling through into adjacent function blocks took some trial and error to get right.
+
