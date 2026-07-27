@@ -275,7 +275,17 @@ store_largest:
     mov [largest], eax              ; Store result (89)
 
     ; Exit Program
+
     mov eax, 1                      ; sys_exit syscall
     xor ebx, ebx                    ; status = 0
     int 0x80
+
+#Activity: Alphabet Printer
+
+## 1. Flowchart
+START -> (Initialize Character 'A' & Set ECX Counter to 26) -> (CALL print_char Procedure) -> (CALL print_newline Procedure) -> (Increment ASCII Character Value) -> (Loop Until Counter reaches 0) -> (Exit Program via Syscall) -> END
+
+### 2. Challenges
+* **Preserving register state across syscalls:** My biggest issue was trying to figure out why my loop was breaking after printing just one letter. It took me a while to realize that the Linux syscalls inside my procedures were overwriting `ecx`, which held my loop count, so I had to use `push ecx` and `pop ecx` around the procedure calls to protect the counter state.
+* **Managing procedural execution flow:** Keeping track of how stack jumps worked without using a debugger like `gdb` was pretty confusing at first. Figuring out how procedure calls jump to labels and ensuring every procedure properly returns with `ret` without falling through into other code blocks took some trial and error to get right.
 
