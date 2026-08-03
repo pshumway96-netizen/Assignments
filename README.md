@@ -298,3 +298,12 @@ START -> (Assign Number Variable to EAX Register) -> (CALL check_odd_even Functi
 * **Understanding bitwise testing for parity:** My biggest issue was figuring out the most efficient way to determine if a number was odd or even in assembly without performing a costly division operation. It took me a second to realize that using the `TEST` instruction to perform a bitwise AND on the least significant bit (LSB) sets the Zero Flag cleanly and lets me branch using `jnz`.
 * **Managing function branching and return execution:** Keeping track of conditional jumps inside a function was pretty confusing at first. Figuring out how to route execution to `print_odd` versus `print_even` while ensuring that both branches properly execute `ret` without falling through into adjacent function blocks took some trial and error to get right.
 
+---
+
+## Activity: File Management
+
+### 1. Challenges
+
+* **Handling File Flags and Permissions:** One of my issues was figuring out how to pass the correct octal permissions and bitwise creation flags into `sys_open`. Combining `O_CREAT`, `O_WRONLY`, and `O_TRUNC` into `577` with `0644q` permissions took some trial and error to make sure the file was created cleanly without access errors.
+* **Managing Offsets with sys_lseek:** Understanding how to properly append data to an existing file was confusing at first. I had to learn how to set `EAX` to `19` for `sys_lseek` and pass `2` into `EDX` (`SEEK_END`) with an offset of `0` in `ECX` to move the pointer to the end of the file before triggering additional `sys_write` operations.
+
