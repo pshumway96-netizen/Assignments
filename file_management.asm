@@ -22,6 +22,10 @@ section .text
     global _start
 
 _start:
+    ; =========================================================================
+    ; TASK 1: Create 'quotes.txt' and write initial quotes
+    ; =========================================================================
+
     ; sys_open (eax=5): create file with permissions rw-r--r-- (0644 octal)
     ; Flags: O_CREAT (64) | O_WRONLY (1) | O_TRUNC (512) = 577 (0x241)
     mov eax, 5
@@ -50,6 +54,10 @@ _start:
     mov eax, 6
     mov ebx, [fd_out]
     int 0x80
+
+    ; =========================================================================
+    ; TASK 2: Open existing file and append quotes using sys_lseek
+    ; =========================================================================
 
     ; sys_open (eax=5): open file in read/write mode (O_RDWR = 2)
     mov eax, 5
