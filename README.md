@@ -307,3 +307,17 @@ START -> (Assign Number Variable to EAX Register) -> (CALL check_odd_even Functi
 * **Handling File Flags and Permissions:** One of my issues was figuring out how to pass the correct octal permissions and bitwise creation flags into `sys_open`. Combining `O_CREAT`, `O_WRONLY`, and `O_TRUNC` into `577` with `0644q` permissions took some trial and error to make sure the file was created cleanly without access errors.
 * **Managing Offsets with sys_lseek:** Understanding how to properly append data to an existing file was confusing at first. I had to learn how to set `EAX` to `19` for `sys_lseek` and pass `2` into `EDX` (`SEEK_END`) with an offset of `0` in `ECX` to move the pointer to the end of the file before triggering additional `sys_write` operations.
 
+# Activity: Final Project
+
+## 1. Flowchart
+
+```mermaid
+graph LR
+    A[START] --> B(Prompt & Read Plaintext and Key)
+    B --> C(Strip Trailing Newlines)
+    C --> D(XOR Loop: Encrypt & Decrypt)
+    D --> E(Open output.txt)
+    E --> F(Write Output to File)
+    F --> G(Close File & Exit Program)
+    G --> H[END]
+
