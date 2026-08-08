@@ -1,4 +1,3 @@
-cat << 'EOF' > main.asm
 section .data
     prompt_plain    db "Enter plain text: ", 0
     prompt_plain_l  equ $ - prompt_plain
@@ -170,4 +169,3 @@ write_to_file:
     mov rdi, [filedesc]
     syscall
     ret
-EOF
