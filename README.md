@@ -311,5 +311,4 @@ START -> (Assign Number Variable to EAX Register) -> (CALL check_odd_even Functi
 
 ## 1. Flowchart
 
-
-START -> (Prompt & Read Plaintext and Key) -> (Strip Trailing Newlines) -> (XOR Encryption & Decryption Loop) -> (Open output.txt) -> (Write Results to File) -> (Close File & Exit Program) -> END
+(https://app.diagrams.net/#G1TsddcbE2XWMlnJx5TjE9WuhJPmFyxYPo#%7B%22pageId%22%3A%22KWj5uN14rmv5uQKZ_7le%22%7D)
