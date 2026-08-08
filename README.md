@@ -311,13 +311,4 @@ START -> (Assign Number Variable to EAX Register) -> (CALL check_odd_even Functi
 
 ## 1. Flowchart
 
-```mermaid
-graph LR
-    A[START] --> B(Prompt & Read Plaintext and Key)
-    B --> C(Strip Trailing Newlines)
-    C --> D(XOR Loop: Encrypt & Decrypt)
-    D --> E(Open output.txt)
-    E --> F(Write Output to File)
-    F --> G(Close File & Exit Program)
-    G --> H[END]
-
+START -> (Prompt & Read Plaintext and Key) -> (Strip Trailing Newlines) -> (XOR Encryption & Decryption Loop) -> (Open output.txt) -> (Write Results to File) -> (Close File & Exit Program) -> END
